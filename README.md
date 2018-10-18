@@ -1,1 +1,1 @@
-# Spectral-clustering
+# Spectral-clustering, teorija grafov.
