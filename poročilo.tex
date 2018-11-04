@@ -1,0 +1,66 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\begin{document}
+\begin{titlepage}
+\title{Spektralno grupiranje}
+\author{Špela Ognjanović in Žiga Trojer}
+	\maketitle
+\end{titlepage}
+
+
+\section{Navodilo}
+Implement spectral clustering algorithms that use several types of Laplace matrices. Consider unnormalized
+spectral clustering, normalized spectral clustering according to Shi and Malik (2000), and normalized spectral clustering according to Ng, Jordan, and Weiss (2002). Generate various data sets or find some examples of real world data and use different types of similarity graphs such as complete graph, the
+ $\epsilon$ -neighborhood graph and k-nearest neighbor graph. Compare the results.
+Use different methods for determining the optimal number of clusters.
+
+\section{Kratek opis}
+Imamo bazo podatkov, naš cilj je te podatke razvrstiti v skupine oz. grupe s podobnimi lastnostmi. Podatke lahko prikažemo z grafi, grafe pa z matrikami. Eden takih primerov je \textbf{matrika sosednosti}, njena razsežnost je n $\times$ n. Element v \textsl{j}-tem stolpcu \textsl{i}-te vrstice pove število povezav, ki povezujejo točki \textsl{i} in \textsl{j}.
+
+Predstavili bomo, kako lahko na različne načine pogrupiramo podatke, podane z množico točk \textsl{\ $x_1$, $x_2$, ... , $x_n$ } z utežmi \textsl{$w_{i,j}\geq 0$} ali razdaljami \textsl{$d_{i,j}$}. Če o podatkih nimamo veliko informacij, je najlažje, če jih predstavimo z grafom \textsl{G=(V, E)}. Vsako vozlišče $v_i$ predstavlja en podatek \textsl{$x_i$}. Potrebujem matriko, ki določa, kako blizu skupaj sta vozlišči $v_i$ in $v_j$. To matriko imenujemo podobna matrika in jo označimo s \textsl{S}. Dva vozlišča povežemo, če zadoščata danemu pogoju in to ponazorimo v podobnem grafu. Želimo, da imajo vozlišča v istih skupinah čim manjšo utežensot, kar pomeni da imajo podatki podobne lastnosti, sicer velja obratno. Spodaj so opisani trije primeri podobnih grafov, s katerimi bomo operirali.\\
+\\
+\textbf{Graf $\epsilon$ -ske okolice}\\
+Pri $\epsilon$ -ski okolici grafa povežemo paroma vse točke, katerih razdalja je manjša od $\epsilon$. Največkrat je obravnavan kot graf brez uteži, saj nam utež predstavlja predpisana razdalja $\epsilon$.\\
+\\
+\textbf{Graf k najbližjih sosedov}\\
+Cilj je, da povežemo vozlišče $v_i$ z njegovimi k najbližjimi sosedi. Če želimo dobiti neusmerjen graf, potem usmerjenost kar ignoriramo. Dobimo, da je $v_i$ med k najbližjimi sosedi od $v_j$ ter $v_j$ med k najbližjimi sosedi od $v_i$.\\
+\\
+\textbf{Poln graf}\\
+Je graf, kjer so vsa vozlišča med seboj povezana.\\
+\\
+Vrnimo se na podobno matriko \textsl{S}. Njene elemente izračunamo s pomočjo neke primerne funkcije. Primer take funkcije je Gaussian Karnelova funkcija, ki nam izračuna oddaljenost dveh vozlišč $v_i$ in $v_j$. Formula za izračun je:$$s(v_i, v_j) = exp(-\textbar\textbar v_i - v_j \textbar\textbar^2 / (2\delta^2))$$pri čemer parameter $\delta$ opisuje razdaljo med vozlišči, podobno kot $\epsilon$ pri grafu epsilonske okolice.  Vrednosti $w_{i,j}$, izračunane po tej meri, so na intervalu [0, 1]. Povejo nam, da manjša kot je vrednost, bolj sta točki oddaljeni. Če je vednost 0, pomeni, da sta vozlišči daleč narazen. Matrika \textsl{S} je simertrična, saj za toliko kot je vozlišče $v_i$ oddaljena od vozlišča $v_j$, je tudi vozlišče $v_j$ oddaljena od $v_i$. Očitno je, da so diagonalni elementi enaki 1.
+
+Ko imamo matriko poračunano, izberemo primeren podoben graf za prikaz clustrov.\\
+\\
+Naslednji korak je izračun Laplaceove matrike. Privzamemo, da imamo utežen, neusmerjen graf \textsl{G}. Uteži so prikazane v matriki \textsl{W}, $\forall w_{i,j}\geq 0$. Definirajmo še diagonalno degree matriko D: $$ d_i = \sum_{j=1}^n w_{i,j}.$$Glede na normalizirane in nenormalizirane ločimo dva primera Laplaceovih matrik:\\
+\begin{enumerate}
+\item\underline{Nenormalizirana Laplaceova matrika}, ki se izračuna po formuli $L = D - W$, kjer je \textsl{W} matrika uteži in \textsl{D} diagonalna matrika.
+\item\underline{Normalizirana Laplaceova matrika}, sta v bistvu dve matriki, ki sta med seboj povezani, prva je simetrična in se izračuna $L = I - D^{-\frac{1}{2}}WD^{-\frac{1}{2}}$, druga pa se izračuna po formuli $L = I - D^{-1}W$.
+\end{enumerate}
+S pomočjo Laplaceove matrike ugotovimo, kako dobro smo podatke pogrupirali.
+
+\section{Načrt za reševanje}
+Prednost algoritma spectral clustering je, da sestoji na preprosti linearni algebri (npr. izračun lastnih vektorjev, lastnih vrednosti, karakterističnega polinoma, ...). Imamo \textsl{n} točk \textsl{$x_1$, $x_2$, ... , $x_n$ }, ki lahko ponazarjajo poljubne objekte. Merimo paroma podobne  \textsl{$s_{i,j}$} =  \textsl{s($x_i$, $x_j$)}, glede na neko simetrično, nenegativno funkcijo. Tako označimo pripadajočo podobno matriko $S=(s_{i,j})_{i,j = 1,..., n}$. Ločimo:
+\begin{itemize}
+\item[a)] Nenormaliziran algoritem.
+\item[b)] Normaliziran algoritem glede na Shi in Malik.
+\item[c)] Normaliziran algoritem glede na Ng, Jordan in Weiss.
+\end{itemize}
+Pri obeh se reševanja lotimo na enak način. Vhodni podatek je podobna matrika $S\in R^{n\times n}$, s  \textsl{k} označimo število clustrov, ki jih želimo skonstruirati. Nato skonstruiramo enega od similarty graphs, opisanega v prejšnjem razdelku. Z \textsl{W} označimo uteženo matriko sosednosti.(A to pomeni slučajn, da W nastaviš na S; W=S?) Po formulah zračunamo pripadajočo normalizirano ali nenormalizirano Laplaceovo matriko L. Nato poračunamo prvih k pripadajočih lastnih vektorjev matrike L. V matriko U $\in R^{n \times k}$ zložimo k lastnih vektorjev v stolpce. Vpeljemo zanko for \textsl{i = 1, ..., n}. Nastali vektor $y_i$ predstavlja \textsl{i}-to vrstico matrike U. Množico točk ($y_i)_{i = 1, ..., n}\in R^k$ s pomočjo k-tega algoritma???? razvrstimo v klustre $C_1, ..., C_k$. Dobimo $A_1, ..., A_k$, kjer $A_i=\{j\textbar y_i\in C_i\}$.\\
+Glavna stvar, ki smo jo naredili je, da smo podatke $x_i$ prevedli na $y_i\in R^{k}$. Izkaže se, da je to zelo uporabno za optimalnejše grupiranje.
+
+
+\section{Program?}
+
+
+\section{Primeri}
+
+
+\end{document}
+
