@@ -53,11 +53,5 @@ Prednost algoritma spectral clustering je, da sestoji na preprosti linearni alge
 Pri obeh se reševanja lotimo na enak način. Vhodni podatek je podobna matrika $S\in R^{n\times n}$, s  \textsl{k} označimo število grup, ki jih želimo skonstruirati. Nato skonstruiramo enega od podobnih grafov, opisanega v prejšnjem razdelku. Z \textsl{W} označimo uteženo matriko sosednosti. Po formulah izračunamo pripadajočo normalizirano ali nenormalizirano Laplaceovo matriko L. Nato poračunamo prvih k pripadajočih lastnih vektorjev matrike L. V matriko U $\in R^{n \times k}$ zložimo k lastnih vektorjev v stolpce, po padajočem vrestnem redu glede na pripradajočo lastno vrednost. Vpeljemo zanko for \textsl{i = 1, ..., n}. Nastali vektor $y_i$ predstavlja \textsl{i}-to vrstico matrike U. Množico točk ($y_i)_{i = 1, ..., n}\in R^k$ s pomočjo k-means algoritma razvrstimo v grupe $C_1, ..., C_k$. Dobimo $A_1, ..., A_k$, kjer $A_i=\{j\textbar y_i\in C_i\}$.\\
 Glavna stvar, ki smo jo naredili je, da smo podatke $x_i$ prevedli na $y_i\in R^{k}$ in tako lažje pogrupirali podatke. V nadaljevanju bomo s pomočjo lastnih vrednosti Laplaceove matrike izračunati optimalen k, oziroma optimalno število grup, ki bi jih naj algoritem skostruiral glede na dano množico podatkov.\\
 
-\section{Program?}
-
-
-\section{Primeri}
-
-
 \end{document}
 
