@@ -68,13 +68,9 @@ Prednost algoritma spectral clustering je, da sestoji na preprosti linearni alge
 \item[b)] Normaliziran algoritem glede na Shi in Malik.
 \item[c)] Normaliziran algoritem glede na Ng, Jordan in Weiss.
 \end{itemize}
-Pri vseh se reševanja lotimo na enak način. Vhodni podatek je podobna matrika $S\in\mathbbm{ R}^{n\times n}$, s  \textsl{k} označimo število grup, ki jih želimo skonstruirati. Nato skonstruiramo enega od podobnih grafov, opisanega v prejšnjem razdelku. Z \textsl{W} označimo uteženo matriko sosednosti. Po formulah izračunamo pripadajočo normalizirano ali nenormalizirano Laplaceovo matriko L. Nato poračunamo prvih k najmanjših pripadajočih lastnih vektorjev matrike L. V matriko U $\in \mathbbm{R}^{n \times k}$ zložimo k lastnih vektorjev v stolpce, po padajočem vrestnem redu glede na pripradajočo lastno vrednost. Vpeljemo zanko for \textsl{i = 1, ..., n}. Nastali vektor $y_i$ predstavlja \textsl{i}-to vrstico matrike U. S pomočjo tega lahko skonstruiramo graf in vidimo, kako dobro smo pogrupirali. Če so točke na grafu zelo narazen pomeni, da smo zelo dobro pogrupirali in obratno. Psevdokoda izgleda na takšen način:
-\begin{algorithmic}
-   \State {\small k $\gets$ 2}
-   \State {\small lastne$\_$vrednosti $\gets$ eigen(U, symmetric = TRUE)}
-   \State {\small Z $\gets$lastne$\_$vrednosti$\$$vectors[,(ncol(lastne\_vrednosti\$vectors)-k+1):ncol(lastne\_vrednosti\$vectors)]}
- \end{algorithmic}
-Nato uporabimo le še ukaz plot: {\small plot(Z, col=objekt\$classes, pch=20)}. Množico točk ($y_i)_{i = 1, ..., n}\in \mathbbm{R}^k$ s pomočjo k-means algoritma razvrstimo v grupe $C_1, ..., C_k$. Dobimo $A_1, ..., A_k$, kjer $A_i=\{j\textbar y_i\in C_i\}$. Grupe lahko tudi grafično prikažemo.
+Pri vseh se reševanja lotimo na enak način. Vhodni podatek je podobna matrika $S\in\mathbbm{ R}^{n\times n}$, s  \textsl{k} označimo število grup, ki jih želimo skonstruirati. Nato skonstruiramo enega od podobnih grafov, opisanega v prejšnjem razdelku. Z \textsl{W} označimo uteženo matriko sosednosti. Po formulah izračunamo pripadajočo normalizirano ali nenormalizirano Laplaceovo matriko L. Nato poračunamo prvih k najmanjših pripadajočih lastnih vektorjev matrike L. V matriko U $\in \mathbbm{R}^{n \times k}$ zložimo k lastnih vektorjev v stolpce, po padajočem vrestnem redu glede na pripradajočo lastno vrednost. Vpeljemo zanko for \textsl{i = 1, ..., n}. Nastali vektor $y_i$ predstavlja \textsl{i}-to vrstico matrike U. S pomočjo tega lahko skonstruiramo graf in vidimo, kako dobro smo pogrupirali. Če so točke na grafu zelo narazen pomeni, da smo zelo dobro pogrupirali in obratno.
+
+Množico točk ($y_i)_{i = 1, ..., n}\in \mathbbm{R}^k$ s pomočjo k-means algoritma razvrstimo v grupe $C_1, ..., C_k$. Dobimo $A_1, ..., A_k$, kjer $A_i=\{j\textbar y_i\in C_i\}$. Grupe lahko tudi grafično prikažemo.
 
 Glavna stvar, ki smo jo naredili je, da smo podatke $x_i$ prevedli na $y_i\in \mathbbm{R}^{k}$ in jih tako lažje pogrupirali. V nadaljevanju bomo s pomočjo lastnih vrednosti Laplaceove matrike izračunati optimalen k, oziroma optimalno število grup, ki bi jih naj algoritem skostruiral glede na dano množico podatkov.
 
