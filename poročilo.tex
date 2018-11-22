@@ -5,6 +5,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{enumerate}
 \usepackage{bbm}
+\usepackage{graphicx}
+\usepackage{subcaption}
 
 
 \begin{document}
@@ -30,7 +32,7 @@ Predstavili bomo, kako lahko na različne načine pogrupiramo podatke, podane z 
 Pri $\epsilon$ -ski okolici grafa povežemo paroma vse točke, katerih razdalja je manjša od $\epsilon$. Največkrat je obravnavan kot graf brez uteži, saj nam utež predstavlja predpisana razdalja $\epsilon$.\\
 \\
 \textbf{Graf k najbližjih sosedov}\\
-Cilj je, da povežemo vozlišče $v_i$ z njegovimi k najbližjimi sosedi. Če želimo dobiti neusmerjen graf, potem usmerjenost kar ignoriramo. Dobimo, da je $v_i$ med k najbližjimi sosedi od $v_j$ ter $v_j$ med k najbližjimi sosedi od $v_i$.\\
+Cilj je, da povežemo vozlišče $v_i$ z njegovimi k najbližjimi sosedi. Dobimo, da je $v_i$ med k najbližjimi sosedi od $v_j$ ter $v_j$ med k najbližjimi sosedi od $v_i$.\\
 \\
 \textbf{Poln graf}\\
 Je graf, kjer so vsa vozlišča med seboj povezana.\\
@@ -60,7 +62,7 @@ Njune lastnosti so:
 S pomočjo Laplaceove matrike ugotovimo, kako dobro smo podatke pogrupirali.
 
 \section{Načrt za reševanje}
-Prednost algoritma spectral clustering je, da sestoji na preprosti linearni algebri (npr. izračun lastnih vektorjev, lastnih vrednosti, karakterističnega polinoma, ...). Imamo \textsl{n} točk $x_1$, $x_2$, ... , $x_n$, ki lahko ponazarjajo poljubne objekte. Merimo paroma podobne  \textsl{$s_{i,j}$} =  \textsl{s($x_i$, $x_j$)}, glede na neko simetrično, nenegativno funkcijo. Tako označimo pripadajočo podobno matriko $S=(s_{i,j})_{i,j = 1,..., n}$. Ločimo:
+Prednost algoritma spectral clustering je, da sestoji na preprosti linearni algebri (npr. izračun lastnih vektorjev, lastnih vrednosti, karakterističnega polinoma, ...). Imamo \textsl{n} točk $x_1$, $x_2$, ... , $x_n$, ki lahko ponazarjajo poljubne objekte. Merimo paroma podobne  \textsl{$s_{i,j}$} =  \textsl{s($x_i$, $x_j$)}, glede na neko simetrično, nenegativno funkcijo (mi uporabimo Gaussian Karnelovo funkcijo). Tako označimo pripadajočo podobno matriko $S=(s_{i,j})_{i,j = 1,..., n}$. Ločimo:
 \begin{itemize}
 \item[a)] Nenormaliziran algoritem.
 \item[b)] Normaliziran algoritem glede na Shi in Malik.
@@ -70,10 +72,24 @@ Pri vseh se reševanja lotimo na enak način. Vhodni podatek je podobna matrika 
 
 Množico točk ($y_i)_{i = 1, ..., n}\in \mathbbm{R}^k$ s pomočjo k-means algoritma razvrstimo v grupe $C_1, ..., C_k$. Dobimo $A_1, ..., A_k$, kjer $A_i=\{j\textbar y_i\in C_i\}$. Grupe lahko tudi grafično prikažemo.
 
-Glavna stvar, ki smo jo naredili je, da smo podatke $x_i$ prevedli na $y_i\in \mathbbm{R}^{k}$ in jih tako lažje pogrupirali. V nadaljevanju bomo s pomočjo lastnih vrednosti Laplaceove matrike izračunati optimalen k, oziroma optimalno število grup, ki bi jih naj algoritem skostruiral glede na dano množico podatkov.
+Glavna stvar, ki smo jo naredili je, da smo podatke $x_i$ prevedli na $y_i\in \mathbbm{R}^{k}$ in jih tako lažje pogrupirali. S pomočjo lastnih vrednosti Laplaceove matrike lahko izračunamo tudi optimalen k, oziroma optimalno število grup, ki bi jih naj algoritem skonstruiral glede na dano množico podatkov. Uporabimo logaritemsko funkcijo in upodobimo lastne vrednsoti s točkastim grafom. Optimalno število grup lahko kar razberemo z grafa in sicer preštejemo število točk do preskoka. 
 
-\section{Primer}
+\section{Primeri in uporaba}
 
+Uporaba algoritma je zelo razširjena v podatkovni analizi, tudi na vseh naravoslovnih področjih, saj vedno kadar se lotimo nekega problema, kjer so baze podatkov, poskušamo dobiti prvi vtis tako, da pogledamo skupne lastnosti. S pomočjo tega algoritma dobimo podatke zelo dobro posortirane in posledično boljši vtis.\\
+\\
+Za lažjo predstavo sva se odločila narediti poseben primer, zgled uporabe algoritma na slikah. Sprogramirala sva ga v programu R, tako, da sva najprej vzela sliko z interneta, jo spravila v matriko in nato na njej izvedla algoritem. Rezultati so vidni spodaj na dveh slikah.
+\begin{figure}[t!]
+  \centering
+  \begin{subfigure}[b]{1.2\linewidth}
+    \includegraphics[width=\linewidth]{prva}
+    \caption{Prvotna slika, vzeta z interneta.}
+  \end{subfigure}
+  \begin{subfigure}[b]{1.2\linewidth}
+    \includegraphics[width=\linewidth]{druga}
+    \caption{Rezultat, po izvedbi algoritma.}
+  \end{subfigure}
+\end{figure}
 
 \end{document}
 
