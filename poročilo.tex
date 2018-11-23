@@ -7,7 +7,7 @@
 \usepackage{bbm}
 \usepackage{graphicx}
 \usepackage{subcaption}
-
+\usepackage{float}
 
 \begin{document}
 \begin{titlepage}
@@ -72,24 +72,34 @@ Pri vseh se reševanja lotimo na enak način. Vhodni podatek je podobna matrika 
 
 Množico točk ($y_i)_{i = 1, ..., n}\in \mathbbm{R}^k$ s pomočjo k-means algoritma razvrstimo v grupe $C_1, ..., C_k$. Dobimo $A_1, ..., A_k$, kjer $A_i=\{j\textbar y_i\in C_i\}$. Grupe lahko tudi grafično prikažemo.
 
-Glavna stvar, ki smo jo naredili je, da smo podatke $x_i$ prevedli na $y_i\in \mathbbm{R}^{k}$ in jih tako lažje pogrupirali. S pomočjo lastnih vrednosti Laplaceove matrike lahko izračunamo tudi optimalen k, oziroma optimalno število grup, ki bi jih naj algoritem skonstruiral glede na dano množico podatkov. Uporabimo logaritemsko funkcijo in upodobimo lastne vrednsoti s točkastim grafom. Optimalno število grup lahko kar razberemo z grafa in sicer preštejemo število točk do preskoka. 
+Glavna stvar, ki smo jo naredili je, da smo podatke $x_i$ prevedli na $y_i\in \mathbbm{R}^{k}$ in jih tako lažje pogrupirali. S pomočjo lastnih vrednosti Laplaceove matrike lahko izračunamo tudi optimalen k, oziroma optimalno število grup, ki bi jih naj algoritem skonstruiral glede na dano množico podatkov. To naredimo tako, da lastne vrednosti po naraščajočem vrstnem redu upodobimo s točkastim grafom. Optimalno število grup lahko kar odčitamo z grafa, tako, da preštejemo število točk do preskoka. 
 
 \section{Primeri in uporaba}
 
 Uporaba algoritma je zelo razširjena v podatkovni analizi, tudi na vseh naravoslovnih področjih, saj vedno kadar se lotimo nekega problema, kjer so baze podatkov, poskušamo dobiti prvi vtis tako, da pogledamo skupne lastnosti. S pomočjo tega algoritma dobimo podatke zelo dobro posortirane in posledično boljši vtis.\\
 \\
-Za lažjo predstavo sva se odločila narediti poseben primer, zgled uporabe algoritma na slikah. Sprogramirala sva ga v programu R, tako, da sva najprej vzela sliko z interneta, jo spravila v matriko in nato na njej izvedla algoritem. Rezultati so vidni spodaj na dveh slikah.
-\begin{figure}[t!]
-  \centering
-  \begin{subfigure}[b]{1.2\linewidth}
-    \includegraphics[width=\linewidth]{prva}
-    \caption{Prvotna slika, vzeta z interneta.}
-  \end{subfigure}
-  \begin{subfigure}[b]{1.2\linewidth}
-    \includegraphics[width=\linewidth]{druga}
-    \caption{Rezultat, po izvedbi algoritma.}
-  \end{subfigure}
+Za lažjo predstavo sva se odločila narediti poseben primer, zgled uporabe algoritma na slikah. Sprogramirala sva ga v programu R, tako, da sva najprej vzela sliko z interneta, jo spravila v matriko in nato na njej izvedla algoritem. Rezultati so vidni spodaj na dveh slikah.\\
+\\
+\begin{figure}[h]
+ 
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth, height=4cm]{prva} 
+\caption{Prvotna slika}
+\label{fig:subim1}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth, height=4cm]{druga}
+\caption{Rezultat}
+\label{fig:subim2}
+\end{subfigure}
+ 
 \end{figure}
+
+
+Nadaljuje se
+
+
+
 
 \end{document}
 
