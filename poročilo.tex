@@ -103,6 +103,7 @@ Za tretji primer smo algoritem izvedli na črno-beli sliki, ki smo jo za hitrej�
 \subsection{Rezultati}
 
 Na \underline{Slika 1}, \underline{Slika 2}, \underline{Slika 3} so prikazani rezultati algoritma na spirali. Opazimo, da podatke najboljše pogrupira algoritem, ki uporablja graf $k$-najbližjih sosedov. Za $k$ smo izbrali 3; povezava do treh najbližjih sosedov. Algoritem poveže celotno komponento, ki se drži skupaj. Graf $\epsilon$-ske okolice poveže točke, ki so za $\epsilon$=0.4 oddaljene. Na tem primeru je očitno, da je ta izbira grafa slaba, saj se povežejo točke, ki so iz različnih komponent - enakomerno razporejeni podatki. Za poln graf smo izbrali $\delta^2$ = 0.01 (poskušanje), algoritem je lepo povezal komponente, saj je za okolico točke gledal bolj lokalno. Čeprav je pri Slika 1 največji razpon med lastnimi vrednostmi pri 1, nam je graf lepo pogrupiral podatke v dve grupi. Opazi se razlika med prvim in drugima dvema algormoma, saj druga dva bolj natančno poračunata število grup oziroma število clustrov.
+
 Na \underline{Slika 4}, \underline{Slika 5}, \underline{Slika 6} so prikazani rezultati algoritma na smejkotu. Najboljše rezultate vrne algoritem, ki uporablja $\epsilon$-sko okolico - ker so podatki neenakomerno razporejeni in je med grupami podatkov dovolj prostora, padejo v $\epsilon$-sko okolico ravno točke iz grup. Tukaj dobro deluje tudi algoritem s polnim grafom - v prvem in zadnjem algoritmu je izbira grup identična.
 
 \subsubsection{Sklep}
