@@ -84,11 +84,15 @@ Pri vseh se reševanja lotimo na enak način. Vhodni podatek je podobna matrika 
 Izhod algoritma: grupe (clusters)  $A_{1},\ldots, A_{k}$, kjer je $A_{i}=\{j|y_{j}\in C_{i}\}$.
 
 Glavna stvar, ki smo jo naredili je, da smo podatke $x_i$ prevedli na $y_i\in \mathbbm{R}^{k}$ in jih tako lažje pogrupirali. S pomočjo lastnih vrednosti Laplaceove matrike lahko izračunamo tudi optimalen k, oziroma optimalno število grup, ki bi jih naj algoritem skonstruiral glede na dano množico podatkov. To naredimo tako, da lastne vrednosti po naraščajočem vrstnem redu upodobimo s točkastim grafom. Optimalno število grup lahko kar odčitamo z grafa - iščemo prvi največji preskos lastne vrednosti (eigengap).
-
+\pagebreak 
 \section{Primeri in uporaba}
 
-Uporaba algoritma je zelo razširjena v podatkovni analizi, tudi na vseh naravoslovnih področjih, saj vedno kadar se lotimo nekega problema, kjer so baze podatkov, poskušamo dobiti prvi vtis tako, da pogledamo skupne lastnosti. S pomočjo tega algoritma dobimo podatke dobro posortirane in posledično boljši vtis. 
-
+Uporaba algoritma je zelo razširjena v podatkovni analizi, tudi na vseh naravoslovnih
+področjih, saj vedno kadar se lotimo nekega problema, kjer so baze
+podatkov, poskušamo dobiti prvi vtis tako, da pogledamo skupne lastnosti. S
+pomočjo tega algoritma dobimo podatke dobro posortirane in posledično boljši
+vtis.\\
+\\
 Podatke smo generirali z uporabo knjižnice $mlbench$: Machine Learning Benchmark Problems. Zgenerirali smo dva tipa podatkov:
 \begin{enumerate}
 \item Spirala: točke so razporejene v dve spirali, dodan je šum oziroma odstopanje. Ta tip podatkov predstavlja enakomerno goste podatke.
@@ -96,8 +100,12 @@ Podatke smo generirali z uporabo knjižnice $mlbench$: Machine Learning Benchmar
 \end{enumerate}
 Za tretji primer smo algoritem izvedli na črno-beli sliki, ki smo jo za hitrejše delovanje algoritma poenostavili (zmanjšali število pikslov). 
 
-Na Slika 1, Slika 2, Slika 3 so prikazani rezultati algoritma na spirali. Opazimo, da podatke najboljše pogrupira algoritem, ki uporablja graf $k$-najbližjih sosedov. Za $k$ smo izbrali 3; povezava do treh najbližjih sosedov. Algoritem poveže celotno komponento, ki se drži skupaj. Graf $\epsilon$-ske okolice poveže točke, ki so za $\epsilon$=0.4 oddaljene. Na tem primeru je očitno, da je ta izbira grafa slaba, saj se povežejo točke, ki so iz različnih komponent - enakomerno razporejeni podatki. Za poln graf smo izbrali $\delta^2$ = 0.01 (poskušanje), algoritem je lepo povezal komponente, saj je za okolico točke gledal bolj lokalno. Čeprav je pri Slika 1 največji razpon med lastnimi vrednostmi pri 1, nam je graf lepo pogrupiral podatke v dve grupi. Opazi se razlika med prvim in drugima dvema algormoma, saj druga dva bolj natančno poračunata število grup oziroma število clustrov.
-Na Slika 4, Slika 5, Slika 6 so prikazani rezultati algoritma na smejkotu. Najboljše rezultate vrne algoritem, ki uporablja $\epsilon$-sko okolico - ker so podatki neenakomerno razporejeni in je med grupami podatkov dovolj prostora, padejo v $\epsilon$-sko okolico ravno točke iz grup. Tukaj dobro deluje tudi algoritem s polnim grafom - v prvem in zadnjem algoritmu je izbira grup identična.
+\subsection{Rezultati}
+
+Na \underline{Slika 1}, \underline{Slika 2}, \underline{Slika 3} so prikazani rezultati algoritma na spirali. Opazimo, da podatke najboljše pogrupira algoritem, ki uporablja graf $k$-najbližjih sosedov. Za $k$ smo izbrali 3; povezava do treh najbližjih sosedov. Algoritem poveže celotno komponento, ki se drži skupaj. Graf $\epsilon$-ske okolice poveže točke, ki so za $\epsilon$=0.4 oddaljene. Na tem primeru je očitno, da je ta izbira grafa slaba, saj se povežejo točke, ki so iz različnih komponent - enakomerno razporejeni podatki. Za poln graf smo izbrali $\delta^2$ = 0.01 (poskušanje), algoritem je lepo povezal komponente, saj je za okolico točke gledal bolj lokalno. Čeprav je pri Slika 1 največji razpon med lastnimi vrednostmi pri 1, nam je graf lepo pogrupiral podatke v dve grupi. Opazi se razlika med prvim in drugima dvema algormoma, saj druga dva bolj natančno poračunata število grup oziroma število clustrov.
+Na \underline{Slika 4}, \underline{Slika 5}, \underline{Slika 6} so prikazani rezultati algoritma na smejkotu. Najboljše rezultate vrne algoritem, ki uporablja $\epsilon$-sko okolico - ker so podatki neenakomerno razporejeni in je med grupami podatkov dovolj prostora, padejo v $\epsilon$-sko okolico ravno točke iz grup. Tukaj dobro deluje tudi algoritem s polnim grafom - v prvem in zadnjem algoritmu je izbira grup identična.
+
+\subsubsection{Sklep}
 
 Iz testnih primerov lahko sklepamo naslednje:
 \begin{enumerate}
@@ -105,8 +113,9 @@ Iz testnih primerov lahko sklepamo naslednje:
 \item Algoritem z grafom $\epsilon$-ske okolice je dobro uporabiti tam, kjer so podatki neenakomerno razporejeni. Zelo dobro bo delal, ko bodo podatki že malo pogrupirani. Tu je spet težava, kako določiti optimalen $\epsilon$, saj so rezultati že za majhna odstopanja precej drugačni.
 \item Algoritem z polnim grafom pa je dobro uporabiti, ko uporabljamo funkcijo sosednosti, ki modelira lokalno sosednost - npr. Gauss-Kernell. Če imamo tako funkcijo, algoritem deluje dobro v obeh primerih, spet pa je težava izbire prave vrednosti $\delta$. 
 \end{enumerate}
+\subsection{Dodaten primer}
 Za konec pa smo algoritem poskusili na malo bolj zahtevnem primeru. Zanimalo nas je, kako spektralno grupiranje deluje na slikah - prepoznavanje objektov. Izbrali smo črno-belo sliko in jo pretvorili v matriko, na kateri smo izvedli nenormalizirano spektralno grupiranje z $\delta^2$ = 0.01 (v povezavi z varianco podatkov). Da smo prišli do željenega rezultata, smo morali malo eksperimentirati s parametri. Z rezultatom smo zadovoljni, saj je algoritem zelo dobro ločil objekt od ostalega.
-
+\subsection{Grafični prikaz}
 \begin{figure}[ht]
 \caption{Nenormaliziran algoritem: graf 3-najbližjih sosedov, graf $\epsilon$-ske okolice ($\epsilon$ = 0.4), poln graf ($\delta^2$=0.01)}
 \includegraphics[width=\textwidth]{unnorm-spiral}
@@ -134,7 +143,6 @@ Za konec pa smo algoritem poskusili na malo bolj zahtevnem primeru. Zanimalo nas
 \caption{Nenormaliziran algoritem na črno-beli sliki, $k$=3, $\delta^2$ = 0.01}
 \includegraphics[width=\textwidth]{roza}
 \end{figure}
-
 
 
 
