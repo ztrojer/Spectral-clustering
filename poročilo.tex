@@ -33,10 +33,10 @@ Predstavili bomo, kako lahko na različne načine pogrupiramo podatke, podane z 
 Pri $\epsilon$ -ski okolici grafa povežemo paroma vse točke, katerih razdalja je manjša od $\epsilon$. Največkrat je obravnavan kot graf brez uteži, saj nam utež predstavlja predpisana razdalja $\epsilon$.\\
 \\
 \textbf{Graf k najbližjih sosedov}\\
-Cilj je, da povežemo vozlišče $v_i$ z njegovimi k najbližjimi sosedi. Dobimo, da je $v_i$ med k najbližjimi sosedi od $v_j$ ter $v_j$ med k najbližjimi sosedi od $v_i$.\\
+Cilj je, da povežemo vozlišče $v_i$ z njegovimi k najbližjimi sosedi. Dobimo, da je $v_i$ med k najbližjimi sosedi od $v_j$, obratno pa v splošnem ne velja.\\
 \\
 \textbf{Poln graf}\\
-Je graf, kjer so vsa vozlišča med seboj povezana.\\
+Je graf, kjer so vsa vozlišča med seboj povezana in utežena s $s_{i,j}$. Izbrana funkcija more modelirati lokalno sosednost, tako graf prikazuje lokalne sosedne razmere.\\
 \\
 Vrnimo se na podobno matriko \textsl{S}. Njene elemente izračunamo s pomočjo neke primerne funkcije. Primer take funkcije je Gauss-Karnelova funkcija, ki nam izračuna oddaljenost dveh vozlišč $v_i$ in $v_j$. Formula za izračun je:$$s(v_i, v_j) = exp(-\textbar\textbar v_i - v_j \textbar\textbar^2 / (2\delta^2)),$$pri čemer parameter $\delta$ opiše razdaljo med vozlišči, podobno kot $\epsilon$ pri grafu epsilonske okolice.  Vrednosti $s_{i,j}$, izračunane po tej meri, so na intervalu [0, 1]. Povejo nam, da manjša kot je vrednost, bolj sta točki oddaljeni. Če je vrednost 0, pomeni, da sta vozlišči daleč narazen. Matrika \textsl{S} je simertrična, saj za toliko kot je vozlišče $v_i$ oddaljena od vozlišča $v_j$, je tudi vozlišče $v_j$ oddaljena od vozlišča $v_i$. Očitno je, da so diagonalni elementi enaki 1.\\
 \\
@@ -113,33 +113,43 @@ Iz testnih primerov lahko sklepamo naslednje:
 \item Algoritem z grafom $\epsilon$-ske okolice je dobro uporabiti tam, kjer so podatki neenakomerno razporejeni. Zelo dobro bo delal, ko bodo podatki že malo pogrupirani. Tu je spet težava, kako določiti optimalen $\epsilon$, saj so rezultati že za majhna odstopanja precej drugačni.
 \item Algoritem z polnim grafom pa je dobro uporabiti, ko uporabljamo funkcijo sosednosti, ki modelira lokalno sosednost - npr. Gauss-Kernell. Če imamo tako funkcijo, algoritem deluje dobro v obeh primerih, spet pa je težava izbire prave vrednosti $\delta$. 
 \end{enumerate}
-\subsection{Dodaten primer}
-Za konec pa smo algoritem poskusili na malo bolj zahtevnem primeru. Zanimalo nas je, kako spektralno grupiranje deluje na slikah - prepoznavanje objektov. Izbrali smo črno-belo sliko in jo pretvorili v matriko, na kateri smo izvedli nenormalizirano spektralno grupiranje z $\delta^2$ = 0.01 (v povezavi z varianco podatkov). Da smo prišli do željenega rezultata, smo morali malo eksperimentirati s parametri. Z rezultatom smo zadovoljni, saj je algoritem zelo dobro ločil objekt od ostalega.
+
 \subsection{Grafični prikaz}
-\begin{figure}[ht]
+
+\begin{figure}[h]
 \caption{Nenormaliziran algoritem: graf 3-najbližjih sosedov, graf $\epsilon$-ske okolice ($\epsilon$ = 0.4), poln graf ($\delta^2$=0.01)}
 \includegraphics[width=\textwidth]{unnorm-spiral}
+\end{figure}
 
+\begin{figure}[h]
 \caption{Normaliziran algoritem RW: graf 3-najbližjih sosedov, graf $\epsilon$-ske okolice ($\epsilon$ = 0.4), poln graf ($\delta^2$=0.01)}
 \includegraphics[width=\textwidth]{norm-spiral}
+\end{figure}
 
+\begin{figure}[h]
 \caption{Normaliziran algoritem SYM: graf 3-najbližjih sosedov, graf $\epsilon$-ske okolice ($\epsilon$ = 0.4), poln graf ($\delta^2$=0.01)}
 \includegraphics[width=\textwidth]{norm-spiral-sym}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[h]
 \caption{Nenormaliziran algoritem: graf 3-najbližjih sosedov, graf $\epsilon$-ske okolice ($\epsilon$ = 0.5), poln graf ($\delta^2$=0.01)}
 \includegraphics[width=\textwidth]{unnorm-smiley}
+\end{figure}
 
+\begin{figure}[h]
 \caption{Normaliziran algoritem RW: graf 3-najbližjih sosedov, graf $\epsilon$-ske okolice ($\epsilon$ = 0.5), poln graf ($\delta^2$=0.01)}
 \includegraphics[width=\textwidth]{norm-smiley}
+\end{figure}
 
+\begin{figure}[h]
 \caption{Normaliziran algoritem SYM: graf 3-najbližjih sosedov, graf $\epsilon$-ske okolice ($\epsilon$ = 0.5), poln graf ($\delta^2$=0.01)}
 \includegraphics[width=\textwidth]{norm-smiley-sym}
 \end{figure}
 
-
-\begin{figure} [ht]
+\begin{figure} [h]
+\subsection{Dodaten primer}
+Za konec pa smo algoritem poskusili na malo bolj zahtevnem primeru. Zanimalo nas je, kako spektralno grupiranje deluje na slikah - prepoznavanje objektov. Izbrali smo črno-belo sliko in jo pretvorili v matriko, na kateri smo izvedli nenormalizirano spektralno grupiranje z $\delta^2$ = 0.01 (v povezavi z varianco podatkov). Da smo prišli do željenega rezultata, smo morali malo eksperimentirati s parametri. Z rezultatom smo zadovoljni, saj je algoritem zelo dobro ločil objekt od ostalega.\\
+\\
 \caption{Nenormaliziran algoritem na črno-beli sliki, $k$=3, $\delta^2$ = 0.01}
 \includegraphics[width=\textwidth]{roza}
 \end{figure}
